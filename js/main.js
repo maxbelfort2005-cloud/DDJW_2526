@@ -3,9 +3,7 @@ addEventListener('load', function() {
         let nom = prompt("Nom del personatge:");
 		console.log("Iniciant partida amb el nom: " + nom);
 		alert("El teu nom de jugador és "+ nom + "!");
-    document.getElementById('play').addEventListener('click', 
-    function(){
-        window.location.assign("./html/game.html");
+		window.location.assign("./html/game.html");
     });
     document.getElementById('options').addEventListener('click', function(){
         console.error("Opció no implementada");
