@@ -67,13 +67,14 @@ var game = {
         }
     },
     save: function(){
-        let toSave = JSON.stringify({
+        localStorage.save = JSON.stringify({
             items: this.items,
             states: this.states,
             lastCard: this.lastCard,
             score: this.score,
             pairs: this.pairs
         });
+        window.location.assign("../");
     }
 }
 
@@ -92,3 +93,7 @@ export function initCard(callback) {
     if (!game.setValue) game.setValue = [];
     game.setValue.push(callback); 
 }
+export function saveGame(){
+    game.save();
+}
+
