@@ -1,28 +1,22 @@
-$(document).ready(function() {
-    
-    // Botón Play
-    $('#play').on('click', function() {
+import {$} from "../library/jquery-4.0.0.slim.module.min.js";
+
+$(function() {
+    $('#play').on('click', function(){
         let nom = prompt("Nom del personatge:");
         console.log("Iniciant partida amb el nom: " + nom);
-        alert("El teu nom de jugador és " + nom + "!");
-        
-        // En jQuery seguimos usando window.location para redirecciones
+        alert("El teu nom de jugador és "+ nom + "!");
         window.location.assign("./html/game.html");
     });
 
-    // Botón Options
-    $('#options').on('click', function() {
+    $('#options').on('click', function(){
         console.error("Opció no implementada");
     });
 
-    // Botón Saves
-    $('#saves').on('click', function() {
+    $('#saves').on('click', function(){
         console.error("Opció no implementada");
     });
 
-    // Botón Exit
-    $('#exit').on('click', function() {
+    $('#exit').on('click', function(){
         console.warn("No es pot sortir!");
     });
-
 });

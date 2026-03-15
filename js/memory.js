@@ -29,12 +29,12 @@ export function startGame(){
     items.forEach(function(_,indx){
         setTimeout(function(){
             game.ready++;
-            goBack(indx);
+			goBack(indx);
         }, 1000 + 100 * indx);
     });
 }
 
-export function clickCard(indx){
+export async function clickCard(indx){
     if (game.ready < items.length) return;
     goFront(indx);
     if (game.lastCard === null) game.lastCard = indx; // Primera carta clicada
@@ -47,13 +47,15 @@ export function clickCard(indx){
             }
         }
         else {
-            goBack(indx);
-            goBack(game.lastCard);
-            game.score -= 25;
-            if (game.score <= 0){
-                alert ("Has perdut");
-                window.location.assign("../");
-            }
+			await delay (3000);
+			goBack(indx);
+			goBack(game.lastCard);
+			game.score -= 25;
+			if (game.score <= 0){					alert ("Has perdut");
+				window.location.assign("../");
+			}
+		
+            
         }
         game.lastCard = null;
     }
@@ -67,4 +69,9 @@ function goBack(idx){
 function goFront(idx){
     setValue(idx, items[idx]);
     clickOff(idx);
+}
+
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
