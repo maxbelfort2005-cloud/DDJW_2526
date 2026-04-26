@@ -3,39 +3,41 @@ import {$} from "../library/jquery-4.0.0.slim.module.min.js";
 var options = function(){
     const default_options = {
         pairs: 2,
+        groupSize: 2,
+        mode: 1,
         difficulty: 'normal'
     } 
 
+    // Referències als inputs
     var pairs = $('#pairs');
+    var groupSize = $('#group-size');
+    var mode = $('#game-mode');
     var difficulty = $('#dif');
     
-    var savedOptions = localStorage.options && JSON.parse(localStorage.options);
-    var options = Object.create(default_options);
+    var savedOptions = localStorage.options ? JSON.parse(localStorage.options) : default_options;
+    var options = Object.assign({}, default_options, savedOptions);
 
-    if (savedOptions && savedOptions.pairs)
-        options.pairs = savedOptions.pairs;
-    if (savedOptions && savedOptions.difficulty)
-        options.difficulty = savedOptions.difficulty;
-
+    // Carregar valors actuals als inputs
     pairs.val(options.pairs);
+    groupSize.val(options.groupSize);
+    mode.val(options.mode);
     difficulty.val(options.difficulty);
-
-    pairs.on('change', function (){
-        options.pairs = pairs.val();
-    });
-
-    difficulty.on('change', function (){
-        options.difficulty = difficulty.val();
-    });
 
     return {
         applyChanges: function(){
+            // Guardem tots els valors abans de sortir
+            options.pairs = pairs.val();
+            options.groupSize = groupSize.val();
+            options.mode = mode.val();
+            options.difficulty = difficulty.val();
+            
             localStorage.options = JSON.stringify(options);
         },
         defaultValues: function(){
-            options.pairs = default_options.pairs;
-            options.difficulty = default_options.difficulty;
+            options = Object.assign({}, default_options);
             pairs.val(options.pairs);
+            groupSize.val(options.groupSize);
+            mode.val(options.mode);
             difficulty.val(options.difficulty);
         }
     }
@@ -43,7 +45,7 @@ var options = function(){
 
 $('#default').on('click', function(){
     options.defaultValues();
-})
+});
 
 $('#apply').on('click', function(){
     options.applyChanges();

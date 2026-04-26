@@ -3,13 +3,19 @@ const svgTemplates = {
     circle: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><circle cx="50" cy="62.5" r="30" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
     square: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><rect x="25" y="37.5" width="50" height="50" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
     triangle: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,35 25,90 75,90" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
+    // Afegim més varietat per si l'usuari tria el màxim de grups (6)
+    pentagon: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,25 90,55 75,100 25,100 10,55" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
+    star: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,20 63,48 93,48 69,67 79,97 50,78 21,97 31,67 7,48 37,48" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
+    rhombus: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,25 80,62.5 50,100 20,62.5" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
     back: `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="#2c3e50"/><rect x="10" y="10" width="80" height="105" fill="none" stroke="#34495e" stroke-width="4"/></svg>`
 };
 
 const resources = [
     svgTemplates.circle("#0099ff"), svgTemplates.circle("#ff6600"),
     svgTemplates.square("#0099ff"), svgTemplates.square("#ff6600"),
-    svgTemplates.triangle("#0099ff"), svgTemplates.triangle("#ff6600")
+    svgTemplates.triangle("#0099ff"), svgTemplates.triangle("#ff6600"),
+    svgTemplates.pentagon("#0099ff"), svgTemplates.star("#ff6600"),
+    svgTemplates.rhombus("#0099ff")
 ];
 
 const back = svgTemplates.back;
@@ -31,8 +37,7 @@ var game = {
         this.states[idx] = StateCard.DISABLE;
     },
     select: function(){
-        // Mirem si venim de "Carregar Partida"
-        if (sessionStorage.load){ 
+        if (sessionStorage.load){
             let toLoad = JSON.parse(sessionStorage.load);
             this.items = toLoad.items;
             this.states = toLoad.states;
@@ -42,16 +47,16 @@ var game = {
             this.groupSize = toLoad.groupSize || 2;
             this.mode = toLoad.mode || 1;
         } else { 
-            // Partida nova: llegim opcions de localStorage
+            // Llegim opcions de localStorage
             if (localStorage.options) {
                 let opt = JSON.parse(localStorage.options);
-                this.pairs = parseInt(opt.pairs);
-                this.groupSize = parseInt(opt.groupSize) || 2;
+                this.pairs = parseInt(opt.pairs) || 2; // Número de grups
+                this.groupSize = parseInt(opt.groupSize) || 2; // Parelles(2), Trios(3), Quartets(4)
                 this.mode = parseInt(opt.mode) || 1;
             }
             
-            // Creem baralla segons la mida del grup (2, 3 o 4)
-            let baseItems = resources.slice(0, this.pairs);
+            // Creem la baralla segons la configuració
+            let baseItems = resources.slice(0, this.pairs); 
             this.items = [];
             for (let i = 0; i < this.groupSize; i++) {
                 this.items = this.items.concat(baseItems);
@@ -62,7 +67,6 @@ var game = {
         }
     },
     start: function(){
-        // Si carreguem partida, algunes cartes ja poden estar girades (DONE o DISABLE)
         this.items.forEach((_, indx) => {
             if (this.states[indx] === StateCard.DONE || this.states[indx] === StateCard.DISABLE) {
                 this.goFront(indx);
@@ -78,12 +82,13 @@ var game = {
         this.goFront(indx);
         this.lastCards.push(indx);
 
+        // Comprovem quan hem girat tantes cartes com digui el groupSize
         if (this.lastCards.length === this.groupSize) {
             let allMatch = this.lastCards.every(i => this.items[i] === this.items[this.lastCards[0]]);
             
             if (allMatch) {
                 this.lastCards.forEach(i => this.states[i] = StateCard.DONE);
-                this.pairs--;
+                this.pairs--; // Un grup menys per resoldre
                 if (this.pairs <= 0) {
                     setTimeout(() => {
                         alert(`Has guanyat! Puntuació: ${this.score}`);
@@ -91,7 +96,7 @@ var game = {
                     }, 500);
                 }
             } else {
-                this.ready -= this.groupSize; 
+                this.ready -= this.groupSize;
                 setTimeout(() => {
                     this.lastCards.forEach(i => this.goBack(i));
                     this.lastCards = [];
@@ -108,10 +113,8 @@ var game = {
         }
     },
     save: function(){
-        // Recuperem la llista de partides guardades
         let allSaves = localStorage.allSaves ? JSON.parse(localStorage.allSaves) : [];
         
-        // Creem l'objecte de la partida actual amb data i hora
         let currentSave = {
             id: Date.now(),
             date: new Date().toLocaleString(),
@@ -124,11 +127,10 @@ var game = {
             mode: this.mode
         };
 
-        // L'afegim a la llista i guardem a localStorage
         allSaves.push(currentSave);
         localStorage.allSaves = JSON.stringify(allSaves);
         
-        alert("Partida guardada a la llista!");
+        alert("Partida guardada!");
         window.location.assign("../");
     }
 }
