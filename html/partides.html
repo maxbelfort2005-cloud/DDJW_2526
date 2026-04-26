@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles/ranking.css">
+    <title> Memory - Partides Guardades </title>
+    <style>
+        /* Estil per al botó d'eliminar */
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            margin-left: 15px;
+            transition: background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+        /* Ajust per a que la fila sigui clicable però el botó també */
+        .ranking-item {
+            cursor: default; /* El punter el posem només al text */
+        }
+        .info-clickable {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Partides</h1>
+    
+    <div id="save-list" class="ranking-list"></div>
+
+    <button class="center" onclick="window.location.assign('../index.html')">Tornar</button>
+
+    <script>
+        function renderSaves() {
+            const container = document.getElementById('save-list');
+            const saves = localStorage.allSaves ? JSON.parse(localStorage.allSaves) : [];
+            container.innerHTML = ""; // Netegem abans de redibuixar
+
+            if (saves.length === 0) {
+                container.innerHTML = "<div class='no-data'>No hi ha partides a mitges</div>";
+                return;
+            }
+
+            saves.forEach((save, index) => {
+                const item = document.createElement('div');
+                item.className = 'ranking-item';
+                
+                item.innerHTML = `
+                    <div class="info-clickable" onclick="loadSave(${index})">
+                        <span class="rank-pos">${index + 1}</span>
+                        <span class="rank-name">Partida ${save.date}</span>
+                        <span class="rank-score">Punts: ${save.score}</span>
+                    </div>
+                    <button class="delete-btn" onclick="deleteSave(${index})">Eliminar</button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function loadSave(index) {
+            const saves = JSON.parse(localStorage.allSaves);
+            sessionStorage.load = JSON.stringify(saves[index]);
+            window.location.assign("game.html");
+        }
+
+        function deleteSave(index) {
+            if (confirm("Segur que vols eliminar aquesta partida?")) {
+                let saves = JSON.parse(localStorage.allSaves);
+                saves.splice(index, 1); // Eliminem la partida de l'array
+                localStorage.allSaves = JSON.stringify(saves); // Guardem l'array actualitzat
+                renderSaves(); // Tornem a dibuixar la llista
+            }
+        }
+
+        // Executem en carregar la pàgina
+        renderSaves();
+    </script>
+</body>
+</html>

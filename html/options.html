@@ -1,31 +1,40 @@
 <!DOCTYPE html> 
 <html>
-	<head>
-        <link rel="stylesheet" href="../styles/options.css">
-        <script src="../js/options.js" type="module"></script>
-		<title> Memory - Opcions </title>
-	</head>
-	<body>
-		<h1>Opcions</h1>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles/opcions.css">
+    <script src="../js/options.js" type="module"></script>
+    <title> Memory - Opcions </title>
+</head>
+<body>
+    <h1>Opcions</h1>
 
-        <label for="type">Tipus de joc</label>
-        <select id="type">
-            <option value="2" selected>Parelles</option>
-            <option value="3">Trios</option>
-            <option value="4">Quartets</option>
-        </select>
+    <label for="pairs">Número de grups</label>
+    <input type="number" id="pairs" value="2" min="2" max="6">
 
-        <label for="pairs">Número de grups de cartes</label>
-        <input type="number" id="pairs" value="2" min="2" max="6">
+    <label for="group-size">Tipus de grup</label>
+    <select id="group-size">
+        <option value="2">Parelles</option>
+        <option value="3">Trios</option>
+        <option value="4">Quartets</option>
+    </select>
+	
+	<label for="game-mode">Mode de joc</label>
+	<select id="game-mode">
+		<option value="1" selected>Mode 1: Partida estàndard</option>
+		<option value="2">Mode 2: Partida progressiva</option>
+	</select>
+	
+    <label for="dif">Dificultat</label>
+    <select id="dif">
+        <option value="easy">Baixa</option>
+        <option value="normal" selected>Normal</option>
+        <option value="hard">Alta</option>
+    </select>
 
-        <label for="dif">Dificultat</label>
-        <select id="dif">
-            <option value="easy">Baixa</option>
-            <option value="normal" selected>Normal</option>
-            <option value="hard">Alta</option>
-        </select>
-
-        <button id="default">Per defecte</button>
-        <button id="apply">Aplicar</button>
-	</body>
+    <div class="button-group">
+        <button id="apply">Aplicar Canvis</button>
+        <button id="default">Valors per defecte</button>
+    </div>
+</body>
 </html>

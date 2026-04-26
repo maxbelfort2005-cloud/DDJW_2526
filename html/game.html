@@ -1,21 +1,16 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-	<head>
-        <link rel="stylesheet" href="../styles/main.css">
-		<script src="../js/game.js" type="module"></script>
-		<title> Memory - Pantalla </title>
-	</head>
-	<body>
-		<h1 id="title">PARTIDA</h1>
-        <div id="game" class="center"> </div>
-		<button  id="sortir" class="center" > Sortir </button>
-        <script src="../js/game.js" type="module"></script>
-		<title> Memory - Pantalla </title>
-	</head>
-	<body>
-		<h1>Partida</h1>
-        <div id="game"> </div>
-		<button id="save">Guardar</button>
-	</body>
-</html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles/game.css"> <title> Memory - Jugant </title>
+</head>
+<body>
+    
+    <div id="game"></div> <div class="game-controls">
+        <button id="save">Guardar Partida</button>
+        <button onclick="window.location.assign('../index.html')">Sortir</button>
+    </div>
 
+    <script src="../js/game.js" type="module"></script>
+</body>
+</html>
