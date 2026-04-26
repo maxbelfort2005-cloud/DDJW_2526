@@ -8,7 +8,6 @@ var options = function(){
         difficulty: 'normal'
     } 
 
-    // Referències als inputs
     var pairs = $('#pairs');
     var groupSize = $('#group-size');
     var mode = $('#game-mode');
@@ -17,7 +16,6 @@ var options = function(){
     var savedOptions = localStorage.options ? JSON.parse(localStorage.options) : default_options;
     var options = Object.assign({}, default_options, savedOptions);
 
-    // Carregar valors actuals als inputs
     pairs.val(options.pairs);
     groupSize.val(options.groupSize);
     mode.val(options.mode);
@@ -25,7 +23,6 @@ var options = function(){
 
     return {
         applyChanges: function(){
-            // Guardem tots els valors abans de sortir
             options.pairs = pairs.val();
             options.groupSize = groupSize.val();
             options.mode = mode.val();

@@ -1,7 +1,7 @@
 addEventListener('load', function() {
     document.getElementById('play').addEventListener('click', 
 	function(){
-		sessionStorage.removeItem('load'); // Netegem qualsevol càrrega prèvia
+		sessionStorage.removeItem('load');
 		window.location.assign("html/game.html");
 	});
 
@@ -10,13 +10,11 @@ addEventListener('load', function() {
         window.location.assign("./html/options.html");
     });
 	
-	// Dins de js/main.js
 	document.getElementById('ranking').addEventListener('click', 
 	function(){
 		window.location.assign("html/ranking.html");
 	});
-	
-	// Dins de js/main.js
+
 	document.getElementById('charge').addEventListener('click', 
 	function(){
 		window.location.assign("html/partides.html");

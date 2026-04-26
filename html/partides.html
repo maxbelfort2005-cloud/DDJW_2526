@@ -45,7 +45,7 @@
         function renderSaves() {
             const container = document.getElementById('save-list');
             const saves = localStorage.allSaves ? JSON.parse(localStorage.allSaves) : [];
-            container.innerHTML = ""; // Netegem abans de redibuixar
+            container.innerHTML = "";
 
             if (saves.length === 0) {
                 container.innerHTML = "<div class='no-data'>No hi ha partides a mitges</div>";
@@ -77,13 +77,12 @@
         function deleteSave(index) {
             if (confirm("Segur que vols eliminar aquesta partida?")) {
                 let saves = JSON.parse(localStorage.allSaves);
-                saves.splice(index, 1); // Eliminem la partida de l'array
-                localStorage.allSaves = JSON.stringify(saves); // Guardem l'array actualitzat
-                renderSaves(); // Tornem a dibuixar la llista
+                saves.splice(index, 1);
+                localStorage.allSaves = JSON.stringify(saves);
+                renderSaves();
             }
         }
 
-        // Executem en carregar la pàgina
         renderSaves();
     </script>
 </body>

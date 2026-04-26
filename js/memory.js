@@ -1,9 +1,7 @@
-// Plantilles SVG per a les cartes
 const svgTemplates = {
     circle: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><circle cx="50" cy="62.5" r="30" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
     square: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><rect x="25" y="37.5" width="50" height="50" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
     triangle: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,35 25,90 75,90" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
-    // Afegim més varietat per si l'usuari tria el màxim de grups (6)
     pentagon: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,25 90,55 75,100 25,100 10,55" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
     star: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,20 63,48 93,48 69,67 79,97 50,78 21,97 31,67 7,48 37,48" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
     rhombus: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,25 80,62.5 50,100 20,62.5" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
@@ -47,15 +45,13 @@ var game = {
             this.groupSize = toLoad.groupSize || 2;
             this.mode = toLoad.mode || 1;
         } else { 
-            // Llegim opcions de localStorage
             if (localStorage.options) {
                 let opt = JSON.parse(localStorage.options);
-                this.pairs = parseInt(opt.pairs) || 2; // Número de grups
-                this.groupSize = parseInt(opt.groupSize) || 2; // Parelles(2), Trios(3), Quartets(4)
+                this.pairs = parseInt(opt.pairs) || 2;
+                this.groupSize = parseInt(opt.groupSize) || 2;
                 this.mode = parseInt(opt.mode) || 1;
             }
-            
-            // Creem la baralla segons la configuració
+
             let baseItems = resources.slice(0, this.pairs); 
             this.items = [];
             for (let i = 0; i < this.groupSize; i++) {
@@ -82,13 +78,12 @@ var game = {
         this.goFront(indx);
         this.lastCards.push(indx);
 
-        // Comprovem quan hem girat tantes cartes com digui el groupSize
         if (this.lastCards.length === this.groupSize) {
             let allMatch = this.lastCards.every(i => this.items[i] === this.items[this.lastCards[0]]);
             
             if (allMatch) {
                 this.lastCards.forEach(i => this.states[i] = StateCard.DONE);
-                this.pairs--; // Un grup menys per resoldre
+                this.pairs--;
                 if (this.pairs <= 0) {
                     setTimeout(() => {
                         alert(`Has guanyat! Puntuació: ${this.score}`);
