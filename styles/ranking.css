@@ -1,0 +1,96 @@
+/* Estil general coherent amb la resta del joc */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #fcfcfc;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Títol "Rànquing" */
+#title {
+    font-size: 2.5rem;
+    font-weight: 200;
+    letter-spacing: 0.4rem;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    color: #1a1a1a;
+}
+
+/* Contenidor de la llista */
+.ranking-list {
+    width: 350px;
+    margin-bottom: 3rem;
+    padding: 0;
+}
+
+/* Cada fila del rànquing */
+.ranking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease;
+}
+
+.ranking-item:hover {
+    background-color: #f9f9f9;
+}
+
+/* Detalls del text dins de la fila */
+.rank-pos {
+    color: #aaa;
+    font-size: 0.8rem;
+    width: 30px;
+}
+
+.rank-name {
+    flex-grow: 1;
+    text-align: left;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.rank-score {
+    font-weight: 600;
+    color: #1a1a1a;
+    font-size: 0.9rem;
+}
+
+/* Missatge quan no hi ha dades */
+.no-data {
+    color: #ccc;
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    letter-spacing: 0.05rem;
+}
+
+/* Botó Tornar (estil igual al menú principal) */
+button.center {
+    width: 200px;
+    padding: 0.8rem;
+    background-color: transparent;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+button.center:hover {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+    background-color: #f0f0f0;
+}
