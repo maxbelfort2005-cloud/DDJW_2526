@@ -1,34 +1,65 @@
+/* Estil general del cos */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #fcfcfc; /* Blanc trencat molt suau */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Títol del menú */
 #title {
-    color: blue;
-    text-align: center;
     font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    letter-spacing: -1px;
+    font-weight: 200;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+    color: #1a1a1a;
+    border: none; /* Eliminem el color vermell anterior */
 }
 
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+/* Contenidor de botons */
 button.center {
-    width: 14rem;
-    height: 3.5rem;
-    margin-top: 2rem;
-    background-color: blue;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    display: block;
+    width: 200px; /* Amplada fixa per a uniformitat */
+    padding: 0.8rem;
+    margin: 0.8rem auto;
+    background-color: transparent;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    color: #666;
     cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Efectes de passat el ratolí (Hover) */
 button.center:hover {
-    background-color: gray;
-	color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+    background-color: #f0f0f0;
+    transform: translateY(-2px); /* Lleugera elevació */
+}
+
+/* Botó sortir - estil diferenciat */
+#exit {
+    margin-top: 2.5rem;
+    border: none;
+    font-size: 0.75rem;
+    color: #aaa;
+    letter-spacing: 0.1rem;
+}
+
+#exit:hover {
+    color: #d9534f; /* Vermell suau només en fer hover */
+    background: none;
+    transform: none;
 }
