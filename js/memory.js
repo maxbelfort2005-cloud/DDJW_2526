@@ -1,12 +1,9 @@
+// Plantilles SVG per a les cartes
 const svgTemplates = {
     circle: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><circle cx="50" cy="62.5" r="30" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
-    
     square: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><rect x="25" y="37.5" width="50" height="50" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
-    
     triangle: (color) => `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="white"/><polygon points="50,35 25,90 75,90" fill="${color}" stroke="#333" stroke-width="1.5"/></svg>`,
-    
-    // El "back" ara és un gris fosc minimalista
-    back: `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="#f0f0f0"/><rect x="5" y="5" width="90" height="115" fill="none" stroke="#ddd" stroke-width="1"/></svg>`
+    back: `<svg width="90" height="115" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="125" fill="#2c3e50"/><rect x="10" y="10" width="80" height="105" fill="none" stroke="#34495e" stroke-width="4"/></svg>`
 };
 
 const resources = [
